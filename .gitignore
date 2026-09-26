@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.vs/
+TestResults/
+*.db
+*.db-shm
+*.db-wal
+artifacts/
+/ЗАЩИТА.md
+/ROADMAP.md

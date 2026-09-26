@@ -1,0 +1,70 @@
+<UserControl x:Class="MusicDiary.Views.AlbumEditorView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="{Binding Heading}" Style="{StaticResource PageTitle}" />
+        <TextBlock Text="Поля со звёздочкой обязательны. Оценку и впечатления можно добавить позже." Style="{StaticResource Muted}" Margin="0,0,0,24" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <ContentControl Content="{Binding CoverPath}" ContentTemplate="{StaticResource CoverTemplate}" Height="260" />
+                <Button Content="Выбрать обложку" Command="{Binding PickCoverCommand}" Margin="0,14,0,8" />
+                <Button Content="Убрать обложку" Command="{Binding RemoveCoverCommand}" />
+                <TextBlock Text="PNG, JPEG или BMP · до 20 МБ" Style="{StaticResource Muted}" FontSize="12" Margin="0,12,0,12" />
+                <CheckBox Content="Добавить в избранное" IsChecked="{Binding IsFavorite}" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Название альбома *" Style="{StaticResource FieldLabel}" Margin="0,0,0,7" />
+                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" AutomationProperties.Name="Название альбома" />
+                <TextBlock Text="Исполнитель *" Style="{StaticResource FieldLabel}" />
+                <TextBox Text="{Binding Artist, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" AutomationProperties.Name="Исполнитель" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,0,14,0">
+                        <TextBlock Text="Год выпуска *" Style="{StaticResource FieldLabel}" />
+                        <TextBox Text="{Binding ReleaseYear, UpdateSourceTrigger=PropertyChanged}" MaxLength="4" AutomationProperties.Name="Год выпуска" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Жанр *" Style="{StaticResource FieldLabel}" />
+                        <TextBox Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" MaxLength="80" AutomationProperties.Name="Жанр" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock Text="Статус" Style="{StaticResource FieldLabel}" />
+                <ComboBox ItemsSource="{Binding Statuses}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding Status}" AutomationProperties.Name="Статус" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="145" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,0,14,0">
+                        <TextBlock Text="Дата прослушивания" Style="{StaticResource FieldLabel}" />
+                        <DatePicker SelectedDate="{Binding ListeningDate}" AutomationProperties.Name="Дата прослушивания" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Оценка · 1–10" Style="{StaticResource FieldLabel}" />
+                        <TextBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" MaxLength="2" AutomationProperties.Name="Оценка" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock Text="Дата обязательна для статуса «Прослушан». При редактировании она исправляет последнее прослушивание." Style="{StaticResource Muted}" FontSize="12" Margin="0,10,0,0" />
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Впечатления" Style="{StaticResource SectionTitle}" />
+        <TextBox Text="{Binding Review, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="130" MaxHeight="350" MaxLength="50000" VerticalScrollBarVisibility="Auto" AutomationProperties.Name="Отзыв" />
+        <TextBlock Text="Треки и маленькие открытия" Style="{StaticResource SectionTitle}" />
+        <TextBlock Text="Введите название и заметку; отметьте треки, которые хочется сохранить отдельно." Style="{StaticResource Muted}" Margin="0,0,0,12" />
+        <ItemsControl ItemsSource="{Binding Tracks}" ItemTemplate="{StaticResource TrackEditor}" />
+        <Button Content="＋  Добавить трек" Command="{Binding AddTrackCommand}" HorizontalAlignment="Left" />
+        <Border Background="#462F2B" CornerRadius="6" Padding="16" Margin="0,20,0,0" Visibility="{Binding ValidationMessage, Converter={StaticResource TextVisibility}}">
+            <TextBlock Text="{Binding ValidationMessage}" />
+        </Border>
+        <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+            <Button Content="Сохранить альбом" Command="{Binding SaveCommand}" Style="{StaticResource PrimaryButton}" />
+            <Button Content="Отмена" Command="{Binding CancelCommand}" Margin="12,0,0,0" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

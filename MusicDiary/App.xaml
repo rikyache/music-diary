@@ -1,0 +1,27 @@
+<Application x:Class="MusicDiary.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:MusicDiary.ViewModels" xmlns:v="clr-namespace:MusicDiary.Views">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+                <v:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CatalogViewModel}">
+                <v:CatalogView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:FavoritesViewModel}">
+                <v:FavoritesView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AlbumEditorViewModel}">
+                <v:AlbumEditorView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AlbumDetailsViewModel}">
+                <v:AlbumDetailsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:StatisticsViewModel}">
+                <v:StatisticsView />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

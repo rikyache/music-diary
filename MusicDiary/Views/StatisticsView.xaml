@@ -1,0 +1,73 @@
+<UserControl x:Class="MusicDiary.Views.StatisticsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="Музыка в цифрах" Style="{StaticResource PageTitle}" />
+        <TextBlock Text="Как звучит ваша коллекция — от любимых жанров до привычки слушать." Style="{StaticResource Muted}" Margin="0,0,0,24" />
+        <UniformGrid Columns="4">
+            <Border Style="{StaticResource Panel}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding TotalCount}" FontSize="32" />
+                    <TextBlock Text="всего альбомов" Style="{StaticResource Muted}" />
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource Panel}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding ListenedCount}" FontSize="32" Foreground="{StaticResource AccentBrush}" />
+                    <TextBlock Text="прослушано" Style="{StaticResource Muted}" />
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource Panel}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding AverageRating}" FontSize="32" />
+                    <TextBlock Text="средняя оценка" Style="{StaticResource Muted}" />
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="{Binding SessionCount}" FontSize="32" />
+                    <TextBlock Text="прослушиваний" Style="{StaticResource Muted}" />
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+        <TextBlock Text="Добавьте альбомы и прослушивания — диаграммы начнут заполняться." Style="{StaticResource Muted}" Margin="0,20,0,0" Visibility="{Binding IsEmpty, Converter={StaticResource BoolVisibility}}" />
+        <Grid Margin="0,24,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="Ваши оценки" FontSize="21" Margin="0,0,0,8" />
+                    <TextBlock Text="Все альбомы с оценкой · от 1 до 10" Style="{StaticResource Muted}" Margin="0,0,0,20" />
+                    <ItemsControl ItemsSource="{Binding Ratings}" ItemTemplate="{StaticResource ChartBar}" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="Ритм прослушиваний" FontSize="21" Margin="0,0,0,8" />
+                    <TextBlock Text="Уникальные альбомы за месяц · последние 12 месяцев" Style="{StaticResource Muted}" Margin="0,0,0,20" />
+                    <ItemsControl ItemsSource="{Binding Months}" ItemTemplate="{StaticResource ChartBar}" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2" Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="Жанры коллекции" FontSize="21" Margin="0,0,0,8" />
+                    <TextBlock Text="Количество альбомов по жанрам" Style="{StaticResource Muted}" Margin="0,0,0,20" />
+                    <ItemsControl ItemsSource="{Binding Genres}" ItemTemplate="{StaticResource ChartBar}" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="Чаще на вашей полке" FontSize="21" Margin="0,0,0,8" />
+                    <TextBlock Text="10 исполнителей с наибольшим числом альбомов" Style="{StaticResource Muted}" Margin="0,0,0,20" />
+                    <ItemsControl ItemsSource="{Binding Artists}" ItemTemplate="{StaticResource ChartBar}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </StackPanel>
+</UserControl>
